@@ -4,11 +4,12 @@
 
 Deserta MedFlow Private Limited builds intelligent infrastructure for healthcare and real-world operations.
 
-MedFlow is its flagship healthcare supply-chain platform, designed to connect operational events, decision intelligence, fulfilment, logistics and delivery confirmation through one platform.
+MedFlow is the flagship product: a healthcare supply-chain intelligence and last-mile orchestration shell designed to connect operational events, decision intelligence, fulfilment, logistics and delivery confirmation through one product experience.
 
 **Founder:** Kabir Bishnoi  
-**Company:** Deserta MedFlow Private Limited  
-**Flagship product:** MedFlow  
+**Legal company:** Deserta MedFlow Private Limited  
+**Primary brand:** DESERTA  
+**Flagship product:** MEDFLOW  
 **Positioning:** Healthcare supply-chain intelligence and last-mile orchestration.
 
 ## Why MedFlow
@@ -30,7 +31,7 @@ MedFlow is **not**:
 - a government database
 - a transport marketplace
 - a clinical record system
-- a generic ETL platform
+- a generic data pipeline
 
 MedFlow is a healthcare supply-chain intelligence and orchestration layer that helps operational teams understand what needs attention, what should move next, where it should go and whether the outcome was completed.
 
@@ -98,9 +99,9 @@ MedFlow is designed for future authorised integration with relevant systems and 
 
 ## Role-Based Platform
 
-One platform.  
-One identity.  
-Multiple operational experiences.
+One MedFlow identity.  
+Multiple operational experiences.  
+Clear separation between company and product.
 
 Role-based experiences may include:
 
@@ -132,20 +133,19 @@ The product experience should remain minimal, role-aware and action-oriented.
 
 ## Current Status
 
+**Phase:** Phase 1 — DESERTA Corporate Website + MEDFLOW Product Shell  
 **Status:** Early Product / Prototype Foundation  
 **Data:** Synthetic / Demo data  
 **Integrations:** Not connected to live external systems  
 **Production deployment:** Not yet claimed
 
-This repository contains the software foundation and product experience for Deserta MedFlow. Current repository areas may include:
+This repository currently contains the public DESERTA corporate website and MEDFLOW product shell. It is not the production MedFlow application. Current repository areas may include:
 
 - corporate website
 - MedFlow product experience
-- role-based application
-- domain models
-- demo data
-- operational workflows
 - product documentation
+- visual product narrative
+- static product shell
 
 Functionality in this repository should not be described as production-ready unless it has been implemented, tested and verified.
 
@@ -164,15 +164,15 @@ The system should evolve toward:
 
 - modular domain architecture
 - role-based access
-- secure authentication
+- role-based product shells
 - event-driven operational workflows
 - auditable actions
 - offline-capable field workflows
 - integration-ready architecture
 - minimal user interfaces
-- server-side security
+- server-side security when a backend is introduced in a later approved phase
 
-No production compliance certifications are claimed in this repository.
+No production compliance certifications are claimed in this repository. No backend, database, authentication system, external API or government integration is implemented in Phase 1.
 
 ## Development
 
@@ -220,7 +220,7 @@ Any future integration with public systems, healthcare infrastructure or operati
 Product foundation
 
 **Phase 2**  
-Role-based operational workflows
+MedFlow product shell: DESERTA → MEDFLOW → SIGN IN → MEDFLOW HOME → APP LAUNCHER → ROLE WORKSPACES
 
 **Phase 3**  
 Decision intelligence
@@ -243,7 +243,7 @@ Healthcare Supply-Chain Intelligence
 ↓  
 From Warehouse to Point of Care.
 
-Avoid adding legacy positioning, unverified production claims or generic healthcare software language. Keep product work focused on healthcare supply-chain intelligence, last-mile orchestration and clear operational execution.
+Avoid adding legacy positioning, unverified production claims or generic healthcare software language. Keep product work focused on healthcare supply-chain intelligence, last-mile orchestration and clear operational execution. Do not describe this Phase 1 website as the production MedFlow application.
 
 ## Contact
 
