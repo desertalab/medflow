@@ -1,44 +1,75 @@
 import './styles.css';
 
-const workspaceCards = [
-  {
-    role: 'Program Executive',
-    description: 'Portfolio-level KPIs, compliance posture, and cross-agency outcomes.',
-    accent: 'Executive command center',
-  },
-  {
-    role: 'Clinical Operations',
-    description: 'Daily work queues, escalations, encounters, and quality review handoffs.',
-    accent: 'Care delivery workspace',
-  },
-  {
-    role: 'Data & Analytics',
-    description: 'Pipeline health, ingestion exceptions, lineage, and analytics-ready exports.',
-    accent: 'Data observability suite',
-  },
-];
+const fallbackPortalData = {
+  metrics: [
+    { label: 'Program readiness', value: '98%' },
+    { label: 'Workflow engines', value: '12 live' },
+    { label: 'Audit status', value: 'Current' },
+  ],
+  flowSteps: [
+    'React/Vite prototype',
+    'Deserta corporate site',
+    'MedFlow product',
+    'One login',
+    'MedFlow home',
+    'App launcher',
+    'Role-based workspace',
+    'Existing workflow engines',
+  ],
+  launcherApps: [
+    'Eligibility intake',
+    'FHIR exchange',
+    'Case management',
+    'Quality reporting',
+    'Audit evidence',
+    'Analytics studio',
+  ],
+  workspaceCards: [
+    {
+      role: 'Program Executive',
+      description: 'Portfolio-level KPIs, compliance posture, and cross-agency outcomes.',
+      accent: 'Executive command center',
+    },
+    {
+      role: 'Clinical Operations',
+      description: 'Daily work queues, escalations, encounters, and quality review handoffs.',
+      accent: 'Care delivery workspace',
+    },
+    {
+      role: 'Data & Analytics',
+      description: 'Pipeline health, ingestion exceptions, lineage, and analytics-ready exports.',
+      accent: 'Data observability suite',
+    },
+  ],
+};
 
-const launcherApps = [
-  'Eligibility intake',
-  'FHIR exchange',
-  'Case management',
-  'Quality reporting',
-  'Audit evidence',
-  'Analytics studio',
-];
+async function loadPortalData() {
+  try {
+    const response = await fetch('/api/portal');
+    if (!response.ok) {
+      throw new Error(`Portal API returned ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.warn('Using embedded portal data fallback.', error);
+    return fallbackPortalData;
+  }
+}
 
-const flowSteps = [
-  'React/Vite prototype',
-  'Deserta corporate site',
-  'MedFlow product',
-  'One login',
-  'MedFlow home',
-  'App launcher',
-  'Role-based workspace',
-  'Existing workflow engines',
-];
+function renderMetrics(metrics) {
+  return metrics
+    .map(
+      (metric) => `
+        <div class="metric-row">
+          <span>${metric.label}</span>
+          <strong>${metric.value}</strong>
+        </div>
+      `,
+    )
+    .join('');
+}
 
-function renderFlowSteps() {
+function renderFlowSteps(flowSteps) {
   return flowSteps
     .map(
       (step, index) => `
@@ -51,7 +82,7 @@ function renderFlowSteps() {
     .join('');
 }
 
-function renderLauncherApps() {
+function renderLauncherApps(launcherApps) {
   return launcherApps
     .map(
       (app) => `
@@ -64,7 +95,7 @@ function renderLauncherApps() {
     .join('');
 }
 
-function renderWorkspaces() {
+function renderWorkspaces(workspaceCards) {
   return workspaceCards
     .map(
       (card) => `
@@ -78,7 +109,7 @@ function renderWorkspaces() {
     .join('');
 }
 
-function renderApp() {
+function renderApp(portalData) {
   return `
     <main>
       <section class="hero shell">
@@ -114,18 +145,7 @@ function renderApp() {
               <span>MedFlow Home</span>
               <span aria-hidden="true">✓</span>
             </div>
-            <div class="metric-row">
-              <span>Program readiness</span>
-              <strong>98%</strong>
-            </div>
-            <div class="metric-row">
-              <span>Workflow engines</span>
-              <strong>12 live</strong>
-            </div>
-            <div class="metric-row">
-              <span>Audit status</span>
-              <strong>Current</strong>
-            </div>
+            ${renderMetrics(portalData.metrics)}
           </div>
         </div>
       </section>
@@ -133,7 +153,7 @@ function renderApp() {
       <section class="flow shell" id="flow" aria-labelledby="flow-title">
         <p class="eyebrow"><span aria-hidden="true">↳</span> Refactor direction</p>
         <h2 id="flow-title">From prototype sprawl to a focused product journey.</h2>
-        <div class="flow-steps">${renderFlowSteps()}</div>
+        <div class="flow-steps">${renderFlowSteps(portalData.flowSteps)}</div>
       </section>
 
       <section class="product shell" id="medflow">
@@ -165,7 +185,7 @@ function renderApp() {
           <p class="eyebrow">App launcher</p>
           <h2>Launch the right workflow without dashboard clutter.</h2>
         </div>
-        <div class="launcher-grid">${renderLauncherApps()}</div>
+        <div class="launcher-grid">${renderLauncherApps(portalData.launcherApps)}</div>
       </section>
 
       <section class="workspaces shell" id="workspaces">
@@ -173,10 +193,11 @@ function renderApp() {
           <p class="eyebrow">Role-based workspace</p>
           <h2>Each user lands in a workspace shaped by their responsibilities.</h2>
         </div>
-        <div class="workspace-grid">${renderWorkspaces()}</div>
+        <div class="workspace-grid">${renderWorkspaces(portalData.workspaceCards)}</div>
       </section>
     </main>
   `;
 }
 
-document.querySelector('#root').innerHTML = renderApp();
+const portalData = await loadPortalData();
+document.querySelector('#root').innerHTML = renderApp(portalData);

@@ -11,5 +11,6 @@ await mkdir(join(dist, 'src'), { recursive: true });
 const html = await readFile(join(root, 'index.html'), 'utf8');
 await writeFile(join(dist, 'index.html'), html, 'utf8');
 await cp(join(root, 'src'), join(dist, 'src'), { recursive: true });
+await cp(join(root, 'server'), join(dist, 'server'), { recursive: true });
 
 console.log('Built static prototype to dist/.');
