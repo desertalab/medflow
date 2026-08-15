@@ -1,60 +1,62 @@
-# MedFlow — clinical-data ETL & analytics for government health programs
+# MedFlow — Deserta product portal prototype
 
-MedFlow provides a secure, auditable pipeline for ingesting, transforming, and analyzing clinical and public-health data for government projects. It includes ETL components, data validation and de-identification utilities, and connectors for common healthcare formats (FHIR, CSV). Designed for regulatory compliance and reproducibility, MedFlow helps public agencies turn operational health data into actionable insights.
+MedFlow is the health-operations product experience inside the Deserta corporate website. This prototype reframes the previous dashboard-heavy concept into a single journey: Deserta corporate entry, MedFlow product landing, one login, MedFlow home, an app launcher, and role-based workspaces that connect to existing workflow engines.
 
-## Features
+## Refactor direction
 
-- ETL pipelines for clinical and public-health datasets
-- Data validation, schema checks, and de-identification utilities
-- Connectors for FHIR, CSV, and common clinical data sources
-- Audit logging and reproducible run configuration for compliance
-- Extensible transforms and analytics-ready outputs
+```text
+React/Vite prototype
+        ↓
+Deserta corporate website
+        ↓
+MedFlow product
+        ↓
+One login
+        ↓
+MedFlow home
+        ↓
+App launcher
+        ↓
+Role-based workspace
+        ↓
+Existing workflow engines
+```
 
-## Supported formats & connectors
+## Product principles
 
-- FHIR (JSON/NDJSON)
-- CSV / TSV
-- Database connectors (Postgres, BigQuery — configurable)
+- Replace many dashboards and navigation items with one clear product shell.
+- Treat Deserta as the corporate brand and MedFlow as the focused product.
+- Use one authenticated entry point for every agency role.
+- Launch existing workflow engines from a consistent app launcher.
+- Route users into role-based workspaces instead of generic mock workflows.
 
-## Quickstart / Installation
+## Quickstart
 
 Prerequisites:
-- Python 3.10+ or compatible runtime (or replace with repo's language/runtime)
-- Docker (recommended for reproducible deployments)
 
-To install from source:
+- Node.js 20+
+- npm
 
-1. Clone the repo
+Install dependencies and run the prototype:
 
-   git clone https://github.com/desertalab/medflow.git
-   cd medflow
+```bash
+npm install
+npm run dev
+```
 
-2. Follow the repository-specific installation instructions (e.g., virtualenv, build, or Docker) — see INSTALL.md or docs/ if available.
+Build a production bundle:
 
-## Usage
+```bash
+npm run build
+```
 
-This repository contains pipeline components and utilities. Example usage patterns:
+## Project structure
 
-- Run ingestion:
-
-  ./bin/run_ingest --config=configs/ingest.yaml
-
-- Validate dataset schema:
-
-  ./bin/validate_data --input data/patients.csv
-
-Adapt the commands above to the concrete scripts and entrypoints provided in the repository.
-
-## Contributing
-
-Contributions are welcome. Please open issues for bugs or feature requests and submit pull requests for patches. Include tests and update documentation for substantial changes.
-
-Suggested repository topics: healthcare, public-health, etl, data-pipeline, fhir, de-identification, analytics, government, compliance
+- `src/main.jsx` — React/Vite prototype for the Deserta-to-MedFlow journey.
+- `src/styles.css` — responsive visual system and layout styles.
+- `index.html` — Vite document entry point.
+- `package.json` — Vite, React, and script configuration.
 
 ## License
 
-Add an appropriate open-source license (e.g., Apache-2.0, MIT) in LICENSE or LICENSE.md.
-
-## Contact
-
-For questions, open an issue or contact the maintainers via the repository.
+MedFlow is licensed under the Apache License 2.0. See `LICENSE` for details.
