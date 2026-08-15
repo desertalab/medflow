@@ -1,203 +1,225 @@
-import './styles.css';
+const flow = ['PHYSICAL WORLD', 'EVENTS', 'DESERTA INTELLIGENCE', 'DECISIONS', 'EXECUTION'];
+const network = ['SUPPLIER', 'WAREHOUSE', 'FACILITY', 'PATIENT'];
+const complexity = ['DEMAND', 'STOCK', 'TIME', 'ROUTE', 'PRIORITY', 'EXCEPTIONS'];
+const thesis = ['EVENT', 'UNDERSTAND', 'DECIDE', 'EXECUTE', 'VERIFY'];
+const medflowSystem = ['NEED', 'INTELLIGENCE', 'FULFILMENT', 'LOGISTICS', 'POINT OF CARE'];
+const experiences = [
+  ['SUPERVISION', 'What needs attention?'],
+  ['FULFILMENT', 'What needs to move?'],
+  ['EXECUTION', 'Where does it go next?'],
+];
+const futureDirections = [
+  'Medical devices',
+  'Laboratory logistics',
+  'Cold chain',
+  'Healthcare assets',
+  'Direct-to-patient operations',
+];
 
-const fallbackPortalData = {
-  metrics: [
-    { label: 'Program readiness', value: '98%' },
-    { label: 'Workflow engines', value: '12 live' },
-    { label: 'Audit status', value: 'Current' },
-  ],
-  flowSteps: [
-    'React/Vite prototype',
-    'Deserta corporate site',
-    'MedFlow product',
-    'One login',
-    'MedFlow home',
-    'App launcher',
-    'Role-based workspace',
-    'Existing workflow engines',
-  ],
-  launcherApps: [
-    'Eligibility intake',
-    'FHIR exchange',
-    'Case management',
-    'Quality reporting',
-    'Audit evidence',
-    'Analytics studio',
-  ],
-  workspaceCards: [
-    {
-      role: 'Program Executive',
-      description: 'Portfolio-level KPIs, compliance posture, and cross-agency outcomes.',
-      accent: 'Executive command center',
-    },
-    {
-      role: 'Clinical Operations',
-      description: 'Daily work queues, escalations, encounters, and quality review handoffs.',
-      accent: 'Care delivery workspace',
-    },
-    {
-      role: 'Data & Analytics',
-      description: 'Pipeline health, ingestion exceptions, lineage, and analytics-ready exports.',
-      accent: 'Data observability suite',
-    },
-  ],
-};
-
-async function loadPortalData() {
-  try {
-    const response = await fetch('/api/portal');
-    if (!response.ok) {
-      throw new Error(`Portal API returned ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.warn('Using embedded portal data fallback.', error);
-    return fallbackPortalData;
-  }
-}
-
-function renderMetrics(metrics) {
-  return metrics
-    .map(
-      (metric) => `
-        <div class="metric-row">
-          <span>${metric.label}</span>
-          <strong>${metric.value}</strong>
-        </div>
-      `,
-    )
-    .join('');
-}
-
-function renderFlowSteps(flowSteps) {
-  return flowSteps
-    .map(
-      (step, index) => `
-        <article class="flow-step">
-          <span>${String(index + 1).padStart(2, '0')}</span>
-          <p>${step}</p>
-        </article>
-      `,
-    )
-    .join('');
-}
-
-function renderLauncherApps(launcherApps) {
-  return launcherApps
-    .map(
-      (app) => `
-        <button class="launcher-tile" type="button">
-          <span>${app}</span>
-          <span aria-hidden="true">→</span>
-        </button>
-      `,
-    )
-    .join('');
-}
-
-function renderWorkspaces(workspaceCards) {
-  return workspaceCards
-    .map(
-      (card) => `
-        <article class="workspace-card">
-          <span>${card.accent}</span>
-          <h3>${card.role}</h3>
-          <p>${card.description}</p>
-        </article>
-      `,
-    )
-    .join('');
-}
-
-function renderApp(portalData) {
+function arrowList(items, className = 'sequence') {
   return `
+    <div class="${className}">
+      ${items
+        .map(
+          (item, index) => `
+            <div class="sequence-item">
+              <span>${item}</span>
+              ${index < items.length - 1 ? '<b aria-hidden="true">↓</b>' : ''}
+            </div>
+          `,
+        )
+        .join('')}
+    </div>
+  `;
+}
+
+function horizontalList(items, className = 'line-system') {
+  return `
+    <div class="${className}">
+      ${items
+        .map(
+          (item, index) => `
+            <div class="line-node">
+              <span>${item}</span>
+              ${index < items.length - 1 ? '<b aria-hidden="true">→</b>' : ''}
+            </div>
+          `,
+        )
+        .join('')}
+    </div>
+  `;
+}
+
+function navigation() {
+  return `
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="wordmark" href="/">DESERTA</a>
+      <div class="nav-links">
+        <a href="/#company">Company</a>
+        <a href="/#products">Products</a>
+        <a href="/medflow">MedFlow</a>
+        <a href="/#technology">Technology</a>
+      </div>
+      <a class="sign-in" href="#signin">Sign in</a>
+    </nav>
+  `;
+}
+
+function homePage() {
+  return `
+    ${navigation()}
     <main>
-      <section class="hero shell">
-        <nav class="topbar" aria-label="Primary navigation">
-          <a class="brand" href="#deserta" aria-label="Deserta home">
-            <span class="brand-mark">D</span>
-            <span>Deserta</span>
-          </a>
-          <div class="nav-links">
-            <a href="#medflow">MedFlow</a>
-            <a href="#launcher">App launcher</a>
-            <a href="#workspaces">Workspaces</a>
-          </div>
-          <a class="login" href="#login">One login</a>
-        </nav>
-
-        <div class="hero-grid" id="deserta">
-          <div class="hero-copy">
-            <p class="eyebrow"><span aria-hidden="true">◆</span> Deserta corporate website</p>
-            <h1>One trusted front door for public-sector health operations.</h1>
-            <p>
-              Refocused from scattered dashboards into a corporate Deserta experience that leads agencies
-              into MedFlow, a single product home, and role-based operational workspaces.
-            </p>
-            <div class="hero-actions">
-              <a class="primary-action" href="#medflow">Explore MedFlow <span aria-hidden="true">→</span></a>
-              <a class="secondary-action" href="#flow">View refactor flow</a>
-            </div>
-          </div>
-
-          <div class="portal-card" aria-label="MedFlow portal preview">
-            <div class="portal-card-header">
-              <span>MedFlow Home</span>
-              <span aria-hidden="true">✓</span>
-            </div>
-            ${renderMetrics(portalData.metrics)}
-          </div>
+      <section class="hero section" id="company">
+        <p class="kicker">DESERTA MEDFLOW PRIVATE LIMITED</p>
+        <h1>DESERTA</h1>
+        <p class="hero-line">Intelligence infrastructure for the physical systems the world depends on.</p>
+        <div class="system-orbit" aria-label="Physical world to execution system visual">
+          ${arrowList(flow, 'sequence vertical')}
         </div>
       </section>
 
-      <section class="flow shell" id="flow" aria-labelledby="flow-title">
-        <p class="eyebrow"><span aria-hidden="true">↳</span> Refactor direction</p>
-        <h2 id="flow-title">From prototype sprawl to a focused product journey.</h2>
-        <div class="flow-steps">${renderFlowSteps(portalData.flowSteps)}</div>
-      </section>
-
-      <section class="product shell" id="medflow">
-        <div>
-          <p class="eyebrow"><span aria-hidden="true">✚</span> MedFlow product</p>
-          <h2>MedFlow becomes the operating layer beneath the Deserta brand.</h2>
+      <section class="section problem" id="technology">
+        <div class="split-head">
+          <h2>Healthcare is digital.<br />Care is physical.</h2>
+          <p>A medicine is not useful because it exists in a database. It is useful when it is available, at the right facility, at the right time, in the right condition.</p>
         </div>
-        <div class="product-grid">
-          <article>
-            <span class="feature-icon" aria-hidden="true">🔐</span>
-            <h3>One login</h3>
-            <p>Single authenticated entry point for every agency user, program, and role.</p>
-          </article>
-          <article>
-            <span class="feature-icon" aria-hidden="true">▦</span>
-            <h3>MedFlow home</h3>
-            <p>A clear landing page with status, priorities, alerts, and next-best actions.</p>
-          </article>
-          <article>
-            <span class="feature-icon" aria-hidden="true">⌁</span>
-            <h3>Workflow engines</h3>
-            <p>Existing engines stay intact and launch from one consistent product shell.</p>
-          </article>
+        ${arrowList(network, 'sequence physical-network')}
+        <div class="complexity-strip" aria-label="Invisible operational complexity">
+          ${complexity.map((item) => `<span>${item}</span>`).join('')}
         </div>
       </section>
 
-      <section class="launcher shell" id="launcher">
-        <div class="section-heading">
-          <p class="eyebrow">App launcher</p>
-          <h2>Launch the right workflow without dashboard clutter.</h2>
-        </div>
-        <div class="launcher-grid">${renderLauncherApps(portalData.launcherApps)}</div>
+      <section class="section thesis">
+        <p class="kicker">DESERTA'S THESIS</p>
+        <h2>Make the network intelligent.</h2>
+        ${horizontalList(thesis)}
       </section>
 
-      <section class="workspaces shell" id="workspaces">
-        <div class="section-heading">
-          <p class="eyebrow">Role-based workspace</p>
-          <h2>Each user lands in a workspace shaped by their responsibilities.</h2>
+      <section class="section product-reveal" id="products">
+        <p class="kicker">DESERTA PRODUCT</p>
+        <h2>MEDFLOW</h2>
+        <p class="product-line">The operating layer for healthcare supply chains.</p>
+        <p class="quiet">From Warehouse to Point of Care.</p>
+        <div class="product-visual">${arrowList(medflowSystem, 'sequence product-system')}</div>
+        <a class="primary-link" href="/medflow">EXPLORE MEDFLOW →</a>
+      </section>
+
+      <section class="section missing-question">
+        <h2>The supply chain already has systems.</h2>
+        <div class="plain-list">
+          <span>Inventory exists.</span>
+          <span>Warehouses exist.</span>
+          <span>Transport exists.</span>
+          <span>Data exists.</span>
         </div>
-        <div class="workspace-grid">${renderWorkspaces(portalData.workspaceCards)}</div>
+        <h3>WHAT SHOULD HAPPEN NEXT?</h3>
+        <p class="strong-statement">Existing systems record what happened. MedFlow helps decide what happens next.</p>
+      </section>
+
+      <section class="section experience">
+        <div class="experience-rail">
+          ${experiences
+            .map(
+              ([title, question]) => `
+                <article>
+                  <span>${title}</span>
+                  <p>${question}</p>
+                </article>
+              `,
+            )
+            .join('')}
+        </div>
+        ${horizontalList(['EVENT', 'RECOMMENDATION', 'ACTION', 'OUTCOME'], 'line-system outcome-line')}
+      </section>
+
+      <section class="section ecosystem">
+        <p class="kicker">ONE MEDFLOW IDENTITY</p>
+        <div class="launcher-concept" aria-label="MedFlow application launcher concept">
+          ${['Health', 'Supply', 'Logistics', 'Supervision'].map((app) => `<span>${app}</span>`).join('')}
+        </div>
+      </section>
+
+      <section class="section vision">
+        <h2>One intelligence layer.<br />Many real-world systems.</h2>
+        <div class="flagship-line"><strong>MEDFLOW</strong><span>Healthcare supply chains</span></div>
+        <p class="kicker">Future product directions</p>
+        <div class="future-list">${futureDirections.map((item) => `<span>${item}</span>`).join('')}</div>
+      </section>
+
+      <section class="section founder">
+        <h2>Why Deserta exists.</h2>
+        <p class="founder-name">Kabir Bishnoi<br /><span>Founder, Deserta MedFlow Private Limited</span></p>
+        <blockquote>
+          “We are not trying to build another software layer that adds complexity to people already managing complex systems.
+          <br /><br />
+          We want to make the complexity disappear.
+          <br /><br />
+          Deserta exists to build the intelligence layer between what is happening in the physical world and what should happen next.”
+        </blockquote>
+      </section>
+
+      <section class="section final-statement">
+        <h2>The physical world is complex.<br />Intelligence should make it simple.</h2>
+        <p>DESERTA</p>
+        <span>Intelligence infrastructure for the real world.</span>
+        <a class="primary-link" href="/medflow">Explore MedFlow →</a>
       </section>
     </main>
   `;
 }
 
-const portalData = await loadPortalData();
-document.querySelector('#root').innerHTML = renderApp(portalData);
+function medflowPage() {
+  return `
+    ${navigation()}
+    <main>
+      <section class="section medflow-hero">
+        <p class="kicker">DESERTA PRODUCT</p>
+        <h1>MEDFLOW</h1>
+        <p>The operating layer for healthcare supply chains.</p>
+        ${horizontalList(['FACILITY NEED', 'MEDFLOW', 'WAREHOUSE', 'LOGISTICS', 'POINT OF CARE'], 'line-system medflow-route')}
+      </section>
+
+      <section class="section coordination">
+        <h2>MedFlow does not replace the systems healthcare already depends on.</h2>
+        <div class="replace-list">
+          <span>Procurement systems</span>
+          <span>Inventory systems</span>
+          <span>Warehouses</span>
+          <span>Transport providers</span>
+        </div>
+        <p>It coordinates them.</p>
+      </section>
+
+      <section class="section interaction">
+        <p class="kicker">PRODUCT INTERACTION</p>
+        <div class="cinematic-flow" aria-label="MedFlow replenishment interaction">
+          <article class="facility-need">
+            <span>PHC Jalore Rural</span>
+            <strong>Medicine A</strong>
+            <em>2.8 days remaining</em>
+          </article>
+          <b aria-hidden="true">↓</b>
+          <article class="recommendation">
+            <span>MedFlow</span>
+            <strong>Replenishment recommended</strong>
+            <em>Source: DDW Jalore</em>
+          </article>
+          <b aria-hidden="true">↓</b>
+          <div class="actions">
+            <span>Approve</span>
+            <span>Route</span>
+            <span>Delivered</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section final-statement product-final">
+        <h2>Existing systems record events.<br />MedFlow helps decide what happens next.</h2>
+        <a class="primary-link" href="/">Return to Deserta →</a>
+      </section>
+    </main>
+  `;
+}
+
+const app = document.querySelector('#root');
+app.innerHTML = window.location.pathname.startsWith('/medflow') ? medflowPage() : homePage();

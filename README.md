@@ -1,40 +1,40 @@
-# MedFlow — Deserta product portal prototype
+# DESERTA
 
-MedFlow is the health-operations product experience inside the Deserta corporate website. This dependency-free full-stack prototype reframes the previous dashboard-heavy concept into a single journey: Deserta corporate entry, MedFlow product landing, one login, MedFlow home, an app launcher, and role-based workspaces that connect to existing workflow engines.
+DESERTA MEDFLOW PRIVATE LIMITED is building intelligence infrastructure for the physical systems the world depends on.
 
-## Refactor direction
+Founder: Kabir Bishnoi
+
+> Deserta builds intelligent systems that turn complex real-world operations into clear decisions and coordinated action.
+
+## Website direction
+
+The site is intentionally not a generic healthcare logistics page, consulting page, SaaS landing page, or feature grid. It is an editorial technology-company website organized around one thesis:
 
 ```text
-React/Vite prototype
-        ↓
-Deserta corporate website
-        ↓
-MedFlow product
-        ↓
-One login
-        ↓
-MedFlow home
-        ↓
-App launcher
-        ↓
-Role-based workspace
-        ↓
-Existing workflow engines
+PHYSICAL WORLD
+↓
+EVENTS
+↓
+DESERTA INTELLIGENCE
+↓
+DECISIONS
+↓
+EXECUTION
 ```
 
-## Product principles
+## Pages
 
-- Replace many dashboards and navigation items with one clear product shell.
-- Treat Deserta as the corporate brand and MedFlow as the focused product.
-- Use one authenticated entry point for every agency role.
-- Launch existing workflow engines from a consistent app launcher.
-- Route users into role-based workspaces instead of generic mock workflows.
+- `/` — DESERTA company homepage and MedFlow flagship product reveal.
+- `/medflow` — MedFlow product page with a focused healthcare supply-chain interaction.
 
-## Full-stack architecture
+## Principles
 
-- Browser UI renders the Deserta and MedFlow product journey from `src/main.js`.
-- Node HTTP API serves portal configuration at `/api/portal` and health checks at `/api/health`.
-- The same Node process serves static assets, so the app can run locally without installing external packages.
+- One strong idea.
+- Extreme hierarchy.
+- Minimal navigation.
+- Product-first storytelling.
+- Spatial design over feature dumping.
+- Mock/demo visuals only; no API, backend integrations, developer console, or government-system connection.
 
 ## Quickstart
 
@@ -43,29 +43,32 @@ Prerequisites:
 - Node.js 20+
 - npm
 
-Run the prototype:
+Run the website:
 
 ```bash
 npm run dev
 ```
 
-Build a production bundle:
+Build a static bundle:
 
 ```bash
 npm run build
 ```
 
+Preview the static bundle:
+
+```bash
+npm run preview
+```
+
 ## Project structure
 
-- `src/main.js` — browser UI that fetches portal data from the backend.
-- `src/styles.css` — responsive visual system and layout styles.
-- `server/app.mjs` — Node HTTP server with API routes and static asset serving.
-- `server/data.js` — portal metrics, launcher apps, workspace roles, and journey steps.
-- `server/index.mjs` — server startup entry point.
-- `scripts/dev-server.mjs` — local full-stack development server.
+- `src/main.js` — static website rendering for `/` and `/medflow`.
+- `src/styles.css` — restrained editorial visual system.
+- `scripts/dev-server.mjs` — local static server with route fallback.
 - `scripts/build.mjs` — static build script that writes `dist/`.
 - `index.html` — document entry point.
-- `package.json` — npm script configuration.
+- `package.json` — dependency-free npm script configuration.
 
 ## License
 
