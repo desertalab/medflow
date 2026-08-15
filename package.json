@@ -1,5 +1,5 @@
 {
-  "name": "medflow-prototype",
+  "name": "deserta-medflow",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,5 +7,19 @@
     "dev": "node scripts/dev-server.mjs",
     "build": "node scripts/build.mjs",
     "preview": "node scripts/dev-server.mjs dist"
-  }
+  },
+  "description": "Healthcare supply-chain intelligence and last-mile orchestration platform by Deserta MedFlow Private Limited.",
+  "keywords": [
+    "healthcare",
+    "healthcare-logistics",
+    "supply-chain",
+    "logistics",
+    "medtech",
+    "health-tech",
+    "healthcare-operations",
+    "last-mile",
+    "decision-intelligence",
+    "deserta",
+    "medflow"
+  ]
 }
